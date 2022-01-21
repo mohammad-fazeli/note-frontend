@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  font-family: sans-serif;
+}
+a {
+  color: #2c3e50;
+  text-decoration: none;
+}
