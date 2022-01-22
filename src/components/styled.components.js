@@ -7,7 +7,7 @@ export const LoginRoot = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  form {
+  .form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,52 +18,56 @@ export const LoginRoot = styled.div`
     box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     padding-top: 1rem;
-    header {
-      font-size: 1.5rem;
-    }
-    main {
+    .main {
       padding: 0 1rem;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      width: 100%;
-      gap: 0.7rem;
-      input {
-        border: 1px solid #e5e5e5;
-        outline: none;
-        padding: 5px 7px;
-        width: 100%;
-        height: 2.5rem;
-        font-size: 1.2rem;
-      }
-      input::placeholder {
-        color: #c4c4c4;
-      }
+      gap: 1.5rem;
       div {
-        display: flex;
-        justify-content: start;
-        flex-direction: column;
-        gap: 0.3rem;
+        input {
+          width: 100%;
+          border: 1px solid #ecf0f1;
+          padding: 10px;
+          font-size: 1rem;
+          margin-top: 5px;
+          outline: none;
+        }
+        .error {
+          border-color: #e3364e;
+        }
+        .error-message {
+          color: #e3364e;
+        }
       }
+
       button {
-        background: #e3364e;
-        padding: 0.6rem;
-        color: #fff;
         border: none;
-        border-radius: 7px;
-        font-size: 1.2rem;
         outline: none;
+        font-size: 1.5rem;
+        color: #fff;
         cursor: pointer;
+        background-color: #e3364e;
+        width: 100%;
+        padding: 5px;
       }
       button:hover {
-        background: #fe5a71;
+        background-color: #fe5a71;
       }
     }
-    footer {
+    .header {
+      font-size: 1.5rem;
+    }
+    .footer {
       width: 100%;
       background-color: #ecf0f1;
       text-align: center;
       padding: 0.8rem;
+    }
+  }
+  @media (max-width: 550px) {
+    .form {
+      width: 90%;
     }
   }
 `;
