@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import TextField from "../components/TextField";
+import ReactLoading from "react-loading";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const Login = () => {
   const isLogin = useSelector(
     (state) => state.user.user.name && state.user.user.token
   );
+  const pending = useSelector((state) => state.user.pending);
+
   useEffect(() => {
     if (isLogin) {
       navigate("/");
@@ -35,6 +38,16 @@ const Login = () => {
 
   return (
     <LoginRoot>
+      {pending && (
+        <div className="loading">
+          <ReactLoading
+            type="spinningBubbles"
+            color="#e3364e"
+            width="100px"
+            height="100px"
+          />
+        </div>
+      )}
       <Formik
         initialValues={{
           email: "",

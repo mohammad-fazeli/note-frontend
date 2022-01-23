@@ -6,6 +6,7 @@ import { signIn } from "../redux/userSlice";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import TextField from "../components/TextField";
+import ReactLoading from "react-loading";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const SignIn = () => {
   const isLogin = useSelector(
     (state) => state.user.user.name && state.user.user.token
   );
+  const pending = useSelector((state) => state.user.pending);
   useEffect(() => {
     if (isLogin) {
       navigate("/");
@@ -46,6 +48,17 @@ const SignIn = () => {
 
   return (
     <LoginRoot>
+      {pending && (
+        <div className="loading">
+          <ReactLoading
+            type="spinningBubbles"
+            color="#e3364e"
+            width="100px"
+            height="100px"
+          />
+        </div>
+      )}
+
       <Formik
         initialValues={{
           name: "",

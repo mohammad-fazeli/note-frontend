@@ -7,6 +7,17 @@ export const LoginRoot = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
+  .loading {
+    position: absolute;
+    background-color: #ecf0f16a;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .form {
     display: flex;
     flex-direction: column;
