@@ -8,8 +8,10 @@ import {
   deleteProject,
   updateProject,
 } from "../redux/projectSlice";
+import { clearNotes } from "../redux/noteSlice";
 import ProjectItem from "./ProjectItem";
 import { FaPlus, FaRegTimesCircle, FaBars, FaTimes } from "react-icons/fa";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ProjectList = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -18,6 +20,8 @@ const ProjectList = () => {
   const projects = useSelector((state) => state.project.projects);
   const { name, token } = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const inputEl = useRef(null);
 
@@ -44,8 +48,12 @@ const ProjectList = () => {
     setProjectName("");
     setAddFiled(false);
   };
-  const handleDelete = (_id) => {
-    dispatch(deleteProject({ token, _id }));
+  const handleDelete = async (_id) => {
+    await dispatch(deleteProject({ token, _id }));
+    if (_id === id) {
+      navigate("/");
+      dispatch(clearNotes());
+    }
   };
 
   const handleUpdate = (_id, newName) => {

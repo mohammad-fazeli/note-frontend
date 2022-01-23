@@ -77,7 +77,11 @@ export const noteSlice = createSlice({
     pending: false,
     error: false,
   },
-  reducers: {},
+  reducers: {
+    clearNotes: (state) => {
+      state.notes = [];
+    },
+  },
   extraReducers: {
     [fetchNotes.pending]: (state) => {
       state.pending = true;
@@ -93,5 +97,6 @@ export const noteSlice = createSlice({
     },
   },
 });
+export const { clearNotes } = noteSlice.actions;
 
 export default noteSlice.reducer;
