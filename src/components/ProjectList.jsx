@@ -9,9 +9,10 @@ import {
   updateProject,
 } from "../redux/projectSlice";
 import ProjectItem from "./ProjectItem";
-import { FaPlus, FaRegTimesCircle } from "react-icons/fa";
+import { FaPlus, FaRegTimesCircle, FaBars, FaTimes } from "react-icons/fa";
 
 const ProjectList = () => {
+  const [openMenu, setOpenMenu] = useState(false);
   const [addFiled, setAddFiled] = useState(false);
   const [projectName, setProjectName] = useState("");
   const projects = useSelector((state) => state.project.projects);
@@ -55,8 +56,28 @@ const ProjectList = () => {
   };
 
   return (
-    <ProjectListRoot>
-      <div className="menu">menu</div>
+    <ProjectListRoot openMenu={openMenu}>
+      <div className="menu">
+        <div className="menuIcon">
+          {openMenu ? (
+            <FaTimes
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            />
+          ) : (
+            <FaBars
+              onClick={() => {
+                setOpenMenu(true);
+              }}
+            />
+          )}
+        </div>
+        <div>{name}</div>
+        <button className="logout" onClick={handleLogOut}>
+          log out
+        </button>
+      </div>
       <div className="information">
         <span>{name}</span>
         <button onClick={handleLogOut}>log out</button>

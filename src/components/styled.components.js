@@ -265,8 +265,19 @@ export const ProjectListRoot = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.3rem;
+    padding: 0.7rem;
     background-color: aliceblue;
+    .menuIcon {
+      font-size: 1.7rem;
+      cursor: pointer;
+    }
+    .logout {
+      width: auto;
+      margin: 0;
+      font-size: 1.1rem;
+      padding: 3px 5px;
+      border-radius: 5px;
+    }
   }
   .information {
     margin-top: 1rem;
@@ -301,10 +312,19 @@ export const ProjectListRoot = styled.div`
   }
   @media (max-width: 550px) {
     .menu {
-      display: block;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    position: absolute;
-    left: -100%;
+    .information {
+      display: none;
+    }
+    position: fixed;
+    left: ${(props) => (props.openMenu ? "0" : "-100%")};
+    width: 100%;
+    top: 3.5rem;
+    border: none;
+    background-color: aliceblue;
   }
 `;
 export const NotesRoot = styled.div`

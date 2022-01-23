@@ -74,6 +74,7 @@ export const noteSlice = createSlice({
   name: "note",
   initialState: {
     notes: [],
+    pending: false,
     error: false,
   },
   reducers: {},
