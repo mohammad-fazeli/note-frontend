@@ -3,19 +3,49 @@ import { TaskRoot } from "./styled.components";
 import { FaTrash, FaRegCheckSquare, FaRegSquare } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTask, deleteTask } from "../redux/noteSlice";
+import { useToasts } from "react-toast-notifications";
 
 const Task = ({ _id, text, done }) => {
+  const { addToast } = useToasts();
   const [textTask, setTextTask] = useState(text);
 
   const { token } = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const handleDeleteTask = () => {
-    dispatch(deleteTask({ _id, token }));
+    dispatch(deleteTask({ _id, token }))
+      .then(() => {
+        addToast("Delete Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Delete not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
 
   const handleUpdateTask = (newDone = done) => {
-    dispatch(updateTask({ token, id: _id, text: textTask, done: newDone }));
+    dispatch(updateTask({ token, id: _id, text: textTask, done: newDone }))
+      .then(() => {
+        addToast("Save Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Save not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
   return (
     <TaskRoot>
@@ -47,7 +77,7 @@ const Task = ({ _id, text, done }) => {
           }}
         />
       </div>
-      <FaTrash className="check_box" onClick={handleDeleteTask} />
+      <FaTrash className="trash" onClick={handleDeleteTask} />
     </TaskRoot>
   );
 };

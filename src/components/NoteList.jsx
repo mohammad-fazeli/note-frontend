@@ -11,6 +11,7 @@ import {
   deleteNote,
   addNewTask,
 } from "../redux/noteSlice";
+import { useToasts } from "react-toast-notifications";
 
 const colors = [
   "#FFDA79",
@@ -23,6 +24,7 @@ const colors = [
   "#DBE6FF",
 ];
 const NoteList = () => {
+  const { addToast } = useToasts();
   const { id } = useParams();
   const notes = useSelector((state) => state.note.notes);
   const { token } = useSelector((state) => state.user.user);
@@ -35,16 +37,72 @@ const NoteList = () => {
   }, [dispatch, id, token]);
 
   const handleAddNewNote = () => {
-    dispatch(addNewNote({ token, project_id: id, color: colors[0] }));
+    dispatch(addNewNote({ token, project_id: id, color: colors[0] }))
+      .then(() => {
+        addToast("Add Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Add not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
   const handleUpdateNote = ({ title, color, _id }) => {
-    dispatch(updateNote({ _id, title, color, token }));
+    dispatch(updateNote({ _id, title, color, token }))
+      .then(() => {
+        addToast("Save Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("error", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
   const handleDeleteNote = (_id) => {
-    dispatch(deleteNote({ _id, token }));
+    dispatch(deleteNote({ _id, token }))
+      .then(() => {
+        addToast("Delete Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Delete not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
   const handleAddTask = (id, text) => {
-    dispatch(addNewTask({ id, text, token }));
+    dispatch(addNewTask({ id, text, token }))
+      .then(() => {
+        addToast("Add Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Add not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
 
   return (

@@ -209,7 +209,7 @@ export const TaskRoot = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .check_box {
+  .trash {
     font-size: 1.3rem;
     cursor: pointer;
   }

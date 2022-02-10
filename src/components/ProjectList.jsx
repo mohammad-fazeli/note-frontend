@@ -13,7 +13,11 @@ import ProjectItem from "./ProjectItem";
 import { FaPlus, FaRegTimesCircle, FaBars, FaTimes } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 
+import { useToasts } from "react-toast-notifications";
+
 const ProjectList = () => {
+  const { addToast } = useToasts();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [addFiled, setAddFiled] = useState(false);
   const [projectName, setProjectName] = useState("");
@@ -40,7 +44,21 @@ const ProjectList = () => {
 
   const addProject = () => {
     if (projectName) {
-      dispatch(addNewProject({ token, name: projectName }));
+      dispatch(addNewProject({ token, name: projectName }))
+        .then(() => {
+          addToast("Add Successfully", {
+            appearance: "success",
+            autoDismiss: true,
+            autoDismissTimeout: 3000,
+          });
+        })
+        .catch(() => {
+          addToast("Add not Successfully", {
+            appearance: "error",
+            autoDismiss: true,
+            autoDismissTimeout: 3000,
+          });
+        });
       cancelAdd();
     }
   };
@@ -49,7 +67,21 @@ const ProjectList = () => {
     setAddFiled(false);
   };
   const handleDelete = async (_id) => {
-    await dispatch(deleteProject({ token, _id }));
+    await dispatch(deleteProject({ token, _id }))
+      .then(() => {
+        addToast("Delete Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Delete not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
     if (_id === id) {
       navigate("/");
       dispatch(clearNotes());
@@ -57,7 +89,21 @@ const ProjectList = () => {
   };
 
   const handleUpdate = (_id, newName) => {
-    dispatch(updateProject({ token, _id, newName }));
+    dispatch(updateProject({ token, _id, newName }))
+      .then(() => {
+        addToast("Edit Successfully", {
+          appearance: "success",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      })
+      .catch(() => {
+        addToast("Edit not Successfully", {
+          appearance: "error",
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        });
+      });
   };
   const showAddFiled = () => {
     setAddFiled(true);
